@@ -1,0 +1,61 @@
+==============================================================================
+SECTION 1 - PRIMARY DATASET (9 barriers)
+==============================================================================
+
+[1a] Prominence & Relation (Table IV) - BDI-M row check
+     BDI-M D+R: [2.176 2.915 1.587 2.226 2.238 1.633 0.915 2.179 1.995]
+     BDI-M D-R: [ 0.325  0.902 -0.59   0.118  0.335 -0.06  -0.639 -0.176 -0.215]
+     Expected (Table IV): D+R = 2.176, 2.915, 1.587, ...  PASS
+
+[1b] Thresholds (Table V)
+     DI     MEAN+SD = 0.502 (exp 0.502)  PASS   MMDE = 0.179 (exp 0.179)  PASS
+     BDI-M  MEAN+SD = 0.177 (exp 0.177)  PASS   MMDE = 0.007 (exp 0.007)  PASS
+     BDI-F  MEAN+SD = 0.654 (exp 0.654)  PASS   MMDE = 0.707 (exp 0.707)  PASS
+
+[1c] DI-MMDE candidate scan: 0.504 is an interior row, NOT the optimum
+     argmax of mean de-entropy: alpha = 0.179 (n = 72)   -> corrected DI-MMDE threshold
+     row alpha = 0.504 exists in the scan (n = 14, MDE = 0.000156) but MDE < optimum (0.000421)  -> transcription error confirmed
+
+[1d] ISM hierarchies (Table VII)   [T rounded to 3 dp, as in the notebooks]
+     DI  (MEAN+SD) a=0.502  levels=4 mean=2.00 var=1.56   (exp 4/2.0/1.56)  PASS
+     DI  (MMDE)    a=0.179  levels=1 mean=1.00 var=0.00   (exp 1/1.0/0.0)  PASS
+     BDIM(MMDE)    a=0.007  levels=1 mean=1.00 var=0.00   (exp 1/1.0/0.0)  PASS
+     BDIM(MEAN+SD) a=0.177  levels=5 mean=2.11 var=2.10   (exp 5/2.11/2.09)  PASS
+     BDIF(MMDE)    a=0.707  levels=3 mean=1.38 var=0.48   (exp 3/1.38/0.48)  PASS
+     BDIF(MEAN+SD) a=0.654  levels=3 mean=1.50 var=0.50   (exp 3/1.5/0.5)  PASS
+
+==============================================================================
+SECTION 2 - CROSS-DOMAIN VALIDATION (Chen 2021, 15 factors)  [Table IX]
+==============================================================================
+
+[2a] Surrogate BWM: Best = F4, Worst = F12, xi* = 0.037 (exp 0.037)  PASS
+     weights range: 0.015 - 0.172 (exp 0.015 - 0.172)
+
+[2b] Thresholds:  MEAN+SD  DI = 0.0790 (exp 0.0790), BDI-M = 0.0505 (exp 0.0505)  PASS
+                  reduction = -36.1% (exp -36.1%)
+                  MMDE      DI = 7.32e-04 (exp 7.3e-04), BDI-M = 1.55e-05 (exp 1.6e-05 = min non-zero influence)
+
+[2c] ISM (MEAN+SD): DI 5 levels var 1.97 (exp 5/1.97) PASS;  BDI-M 5 levels var 1.53 (exp 5/1.53) PASS
+     MMDE saturation pinned at matrix density = 21.3% (exp 21.3%)
+
+[2d] Reclassified factors: F[8, 9, 10] rate = 20.0% (exp F8,F9,F10 / 20.0%)  PASS
+
+==============================================================================
+SECTION 3 - MONTE CARLO CONVERGENCE DIAGNOSTICS  [Table VIII]
+==============================================================================
+(2,000-iteration budget adequacy; ~1-2 minutes)
+
+     N |  95% MC error bound of SI |  max CV of alpha | max |d mean alpha| vs N=5000
+   500 |                 +/- 0.044 |            28.9% |                        0.42%
+  1000 |                 +/- 0.031 |            29.2% |                        0.55%
+  2000 |                 +/- 0.022 |            29.7% |                        0.80%
+  5000 |                 +/- 0.014 |            29.7% |                        0.59%
+Expected (Table VIII): error bound 0.044 / 0.031 / 0.022 / 0.014; CV stable across budgets (max ~29.5%); d mean alpha < 0.8%
+
+==============================================================================
+SECTION 4 - FIG. 2 STATISTICS (MEAN+SD threshold distributions, 2,000 iters)
+==============================================================================
+  sigma = 10%:  DI mu = 0.489 CV = 9.9%   |   BDI-M mu = 0.184 CV = 16.3%
+  sigma = 15%:  DI mu = 0.470 CV = 13.3%   |   BDI-M mu = 0.190 CV = 24.7%
+
+Done. All sections executed.
